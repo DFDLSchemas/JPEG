@@ -67,7 +67,6 @@
 			<xs:element name="MarkerID" type="xs:hexBinary" dfdl:lengthUnits="bytes" dfdl:lengthKind="explicit" dfdl:length="1" dfdl:outputValueCalc="{
 				if (fn:exists(../SOI)) then xs:hexBinary('D8')
 				else if (fn:exists(../APP0)) then xs:hexBinary('E0')
-				else if (fn:exists(../APP0X)) then xs:hexBinary('E0')
 				else if (fn:exists(../APP1)) then xs:hexBinary('E1')
 				else if (fn:exists(../APP2)) then xs:hexBinary('E2')
 				else if (fn:exists(../APP3)) then xs:hexBinary('E3')
@@ -83,7 +82,6 @@
 				else if (fn:exists(../APP13)) then xs:hexBinary('ED')
 				else if (fn:exists(../APP14)) then xs:hexBinary('EE')
 				else if (fn:exists(../APP15)) then xs:hexBinary('EF')
-				else if (fn:exists(../APP0)) then xs:hexBinary('E0')
 				else if (fn:exists(../DQT)) then xs:hexBinary('DB')
 				else if (fn:exists(../SOF0)) then xs:hexBinary('C0')
 				else if (fn:exists(../SOF1)) then xs:hexBinary('C1')
@@ -123,464 +121,70 @@
 	<xs:group name="Markers">
 		<xs:sequence>
 			<xs:sequence dfdl:hiddenGroupRef="hiddenFillMarker"/>
-			<xs:choice>
-			    <xs:sequence>
-			        <!--  SOI = D8 = Start of Image -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D8'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOI"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP0 = E0 = Application-specific 0 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E0'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP0"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP0X = E0 = Application-specific 0 extension -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E0'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP0X"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP1 = E1 = Application-specific 1 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E1'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP1"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP2 = E2 = Application-specific 2 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E2'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP2"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP3 = E3 = Application-specific 3 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E3'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP3"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP4 = E4 = Application-specific 4 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E4'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP4"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP5 = E5 = Application-specific 5 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E5'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP5"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP6 = E6 = Application-specific 6 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E6'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP6"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP7 = E7 = Application-specific 7 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E7'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP7"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP8 = E8 = Application-specific 8 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E8'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP8"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP9 = E9 = Application-specific 9 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'E9'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP9"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP10 = EA = Application-specific 10 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'EA'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP10"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP11 = EB = Application-specific 11 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'EB'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP11"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP12 = EC = Application-specific 12 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'EC'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP12"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP13 = ED = Application-specific 13 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'ED'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP13"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP14 = EE = Application-specific 14 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'EE'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP14"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  APP15 = EF = Application-specific 15 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'EF'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="APP15"/>
-			    </xs:sequence>
-			
-			    <xs:sequence>
-			        <!--  DQT = DB = Define Quantization Table -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'DB'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="DQT"/>
-			    </xs:sequence>
+			<xs:choice dfdl:choiceDispatchKey="{ xs:string(MarkerID) }">
+			    <xs:element ref="SOI" dfdl:choiceBranchKey="D8"/><!--  SOI = D8 = Start of Image -->
+			    <xs:element ref="APP0" dfdl:choiceBranchKey="E0"/><!--  APP0 = E0 = Application-specific 0 -->
+			    <xs:element ref="APP1" dfdl:choiceBranchKey="E1"/><!--  APP1 = E1 = Application-specific 1 -->
+			    <xs:element ref="APP2" dfdl:choiceBranchKey="E2"/><!--  APP2 = E2 = Application-specific 2 -->
+			    <xs:element ref="APP3" dfdl:choiceBranchKey="E3"/><!--  APP3 = E3 = Application-specific 3 -->
+			    <xs:element ref="APP4" dfdl:choiceBranchKey="E4"/><!--  APP4 = E4 = Application-specific 4 -->
+			    <xs:element ref="APP5" dfdl:choiceBranchKey="E5"/><!--  APP5 = E5 = Application-specific 5 -->
+			    <xs:element ref="APP6" dfdl:choiceBranchKey="E6"/><!--  APP6 = E6 = Application-specific 6 -->
+			    <xs:element ref="APP7" dfdl:choiceBranchKey="E7"/><!--  APP7 = E7 = Application-specific 7 -->
+			    <xs:element ref="APP8" dfdl:choiceBranchKey="E8"/><!--  APP8 = E8 = Application-specific 8 -->
+			    <xs:element ref="APP9" dfdl:choiceBranchKey="E9"/><!--  APP9 = E9 = Application-specific 9 -->
+			    <xs:element ref="APP10" dfdl:choiceBranchKey="EA"/><!--  APP10 = EA = Application-specific 10 -->
+			    <xs:element ref="APP11" dfdl:choiceBranchKey="EB"/><!--  APP11 = EB = Application-specific 11 -->
+			    <xs:element ref="APP12" dfdl:choiceBranchKey="EC"/><!--  APP12 = EC = Application-specific 12 -->
+			    <xs:element ref="APP13" dfdl:choiceBranchKey="ED"/><!--  APP13 = ED = Application-specific 13 -->
+			    <xs:element ref="APP14" dfdl:choiceBranchKey="EE"/><!--  APP14 = EE = Application-specific 14 -->
+			    <xs:element ref="APP15" dfdl:choiceBranchKey="EF"/><!--  APP15 = EF = Application-specific 15 -->
+			    <xs:element ref="DQT" dfdl:choiceBranchKey="DB"/><!--  DQT = DB = Define Quantization Table -->
 			
 			    <!-- Start of Frame markers, non-differential Huffman coding -->
 			
-			    <xs:sequence>
-			        <!--  SOF0 = C0 = Start of Frame 0 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C0'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF0"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF1 = C1 = Start of Frame 1 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C1'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF1"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF2 = C2 = Start of Frame 2 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C2'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF2"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF3 = C3 = Start of Frame 3 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C3'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF3"/>
-			    </xs:sequence>
+			    <xs:element ref="SOF0" dfdl:choiceBranchKey="C0"/><!--  SOF0 = C0 = Start of Frame 0 -->
+			    <xs:element ref="SOF1" dfdl:choiceBranchKey="C1"/><!--  SOF1 = C1 = Start of Frame 1 -->
+			    <xs:element ref="SOF2" dfdl:choiceBranchKey="C2"/><!--  SOF2 = C2 = Start of Frame 2 -->
+			    <xs:element ref="SOF3" dfdl:choiceBranchKey="C3"/><!--  SOF3 = C3 = Start of Frame 3 -->
 			
 			    <!-- Start of Frame markers, differential Huffman coding -->
 			
-			    <xs:sequence>
-			        <!--  SOF5 = C5 = Start of Frame 5 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C5'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF5"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF6 = C6 = Start of Frame 6 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C6'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF6"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF7 = C7 = Start of Frame 7 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C7'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF7"/>
-			    </xs:sequence>
+			    <xs:element ref="SOF5" dfdl:choiceBranchKey="C5"/><!--  SOF5 = C5 = Start of Frame 5 -->
+			    <xs:element ref="SOF6" dfdl:choiceBranchKey="C6"/><!--  SOF6 = C6 = Start of Frame 6 -->
+			    <xs:element ref="SOF7" dfdl:choiceBranchKey="C7"/><!--  SOF7 = C7 = Start of Frame 7 -->
 			
 			    <!-- Start of Frame markers, non-differential arithmetic coding -->
 			
-			    <xs:sequence>
-			        <!--  SOF9 = C9 = Start of Frame 9 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C9'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF9"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF10 = CA = Start of Frame 10 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'CA'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF10"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF11 = CB = Start of Frame 11 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'CB'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF11"/>
-			    </xs:sequence>
+			    <xs:element ref="SOF9" dfdl:choiceBranchKey="C9"/><!--  SOF9 = C9 = Start of Frame 9 -->
+			    <xs:element ref="SOF10" dfdl:choiceBranchKey="CA"/><!--  SOF10 = CA = Start of Frame 10 -->
+			    <xs:element ref="SOF11" dfdl:choiceBranchKey="CB"/><!--  SOF11 = CB = Start of Frame 11 -->
 			
 			    <!-- Start of Frame markers, differential arithmetic coding -->
 			
-			    <xs:sequence>
-			        <!--  SOF13 = CD = Start of Frame 13 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'CD'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF13"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF14 = CE = Start of Frame 14 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'CE'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF14"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOF15 = CF = Start of Frame 15 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'CF'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOF15"/>
-			    </xs:sequence>
+			    <xs:element ref="SOF13" dfdl:choiceBranchKey="CD"/><!--  SOF13 = CD = Start of Frame 13 -->
+			    <xs:element ref="SOF14" dfdl:choiceBranchKey="CE"/><!--  SOF14 = CE = Start of Frame 14 -->
+			    <xs:element ref="SOF15" dfdl:choiceBranchKey="CF"/><!--  SOF15 = CF = Start of Frame 15 -->
 			
-			    <xs:sequence>
-			        <!--  DRI = DD = Define Restart Interval -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'DD'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="DRI"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  DHT = C4 = Define Huffman Table -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'C4'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="DHT"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  COM = FE = Comment -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'FE'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="COM"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  DNL = DC = Define Number of Lines -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'DC'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="DNL"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  EXP = DF = Expand Segment -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'DF'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="EXP"/>
-			    </xs:sequence>
-				<xs:sequence>
-					<!--  DHP = DE = Define Hierarchical Progression -->
-					<xs:annotation>
-						<xs:appinfo source="http://www.ogf.org/dfdl/">
-							<dfdl:discriminator test="{xs:string(MarkerID) eq 'DE'}"/>
-						</xs:appinfo>
-					</xs:annotation>
-					<xs:element ref="DHP"/>
-				</xs:sequence>
-			    <xs:sequence>
-			        <!--  DAC = CC = Define Arithmetic Code -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'CC'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="DAC"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  SOS = DA = Start of Scan -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'DA'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="SOS"/>
-			    </xs:sequence>
+			    <xs:element ref="DRI" dfdl:choiceBranchKey="DD"/><!--  DRI = DD = Define Restart Interval -->
+			    <xs:element ref="DHT" dfdl:choiceBranchKey="C4"/><!--  DHT = C4 = Define Huffman Table -->
+			    <xs:element ref="COM" dfdl:choiceBranchKey="FE"/><!--  COM = FE = Comment -->
+			    <xs:element ref="DNL" dfdl:choiceBranchKey="DC"/><!--  DNL = DC = Define Number of Lines -->
+			    <xs:element ref="EXP" dfdl:choiceBranchKey="DF"/><!--  EXP = DF = Expand Segment -->
+			    <xs:element ref="DHP" dfdl:choiceBranchKey="DE"/><!--  DHP = DE = Define Hierarchical Progression -->
+			    <xs:element ref="DAC" dfdl:choiceBranchKey="CC"/><!--  DAC = CC = Define Arithmetic Code -->
+			    <xs:element ref="SOS" dfdl:choiceBranchKey="DA"/><!--  SOS = DA = Start of Scan -->
 			
-			    <xs:sequence>
-			        <!--  RST0 = D0 = Reset 0 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D0'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST0"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  RST1 = D1 = Reset 1 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D1'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST1"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  RST2 = D2 = Reset 2 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D2'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST2"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  RST3 = D3 = Reset 3 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D3'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST3"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  RST4 = D4 = Reset 4 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D4'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST4"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  RST5 = D5 = Reset 5 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D5'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST5"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  RST6 = D6 = Reset 6 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D6'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST6"/>
-			    </xs:sequence>
-			    <xs:sequence>
-			        <!--  RST7 = D7 = Reset 7 -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D7'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="RST7"/>
-			    </xs:sequence>
+			    <xs:element ref="RST0" dfdl:choiceBranchKey="D0"/><!--  RST0 = D0 = Reset 0 -->
+			    <xs:element ref="RST1" dfdl:choiceBranchKey="D1"/><!--  RST1 = D1 = Reset 1 -->
+			    <xs:element ref="RST2" dfdl:choiceBranchKey="D2"/><!--  RST2 = D2 = Reset 2 -->
+			    <xs:element ref="RST3" dfdl:choiceBranchKey="D3"/><!--  RST3 = D3 = Reset 3 -->
+			    <xs:element ref="RST4" dfdl:choiceBranchKey="D4"/><!--  RST4 = D4 = Reset 4 -->
+			    <xs:element ref="RST5" dfdl:choiceBranchKey="D5"/><!--  RST5 = D5 = Reset 5 -->
+			    <xs:element ref="RST6" dfdl:choiceBranchKey="D6"/><!--  RST6 = D6 = Reset 6 -->
+			    <xs:element ref="RST7" dfdl:choiceBranchKey="D7"/><!--  RST7 = D7 = Reset 7 -->
 			
-			    <xs:sequence>
-			        <!--  EOI = D9 = End of Image -->
-			        <xs:annotation>
-			            <xs:appinfo source="http://www.ogf.org/dfdl/">
-			                <dfdl:discriminator test="{xs:string(MarkerID) eq 'D9'}"/>
-			            </xs:appinfo>
-			        </xs:annotation>
-			        <xs:element ref="EOI"/>
-			    </xs:sequence>
+			    <xs:element ref="EOI" dfdl:choiceBranchKey="D9"/><!--  EOI = D9 = End of Image -->
 			</xs:choice>
 		</xs:sequence>
 	</xs:group>
@@ -1046,28 +650,121 @@
 				<xs:sequence dfdl:hiddenGroupRef="hidden_APP0_Identifier_Group" />
 				<xs:element name='Identifier' type='xs:string' dfdl:inputValueCalc='{
 					if (xs:string(../Hidden_APP0_Identifier) eq "4A46494600") then "JFIF-APP0"    
+					else if (xs:string(../Hidden_APP0_Identifier) eq "4A46585800") then "JFXX-APP0"    
 					else "daf:error()"
 					}' />
-				<xs:element name="version">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="major" type="unsignedint8" />
-							<xs:element name="minor" type="unsignedint8" />
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:sequence dfdl:hiddenGroupRef="hidden_APP0_Units_Group" />
-				<xs:element name='Units' type='xs:string' dfdl:inputValueCalc='{
-					if (xs:integer(../Hidden_APP0_Units) eq xs:integer(0)) then "No units"
-					else if (xs:integer(../Hidden_APP0_Units) eq xs:integer(1)) then "Dots per inch"
-					else if (xs:integer(../Hidden_APP0_Units) eq xs:integer(2)) then "Dots per cm"
-					else daf:error()
-					}' />
-				<xs:element name="Xdensity" type="unsignedint16" />
-				<xs:element name="Ydensity" type="unsignedint16" />
-				<xs:element name="Xthumbnail" type="unsignedint8" />
-				<xs:element name="Ythumbnail" type="unsignedint8" />
-				<xs:element name="RGB" type="xs:hexBinary" minOccurs="0" dfdl:occursCountKind="implicit" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{3 * (../Xthumbnail * ../Ythumbnail)}"/>
+				<xs:choice dfdl:choiceDispatchKey="{ Identifier }">
+					<xs:sequence dfdl:choiceBranchKey="JFIF-APP0">
+						<xs:element name="version">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="major" type="unsignedint8" />
+									<xs:element name="minor" type="unsignedint8" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:sequence dfdl:hiddenGroupRef="hidden_APP0_Units_Group" />
+						<xs:element name='Units' type='xs:string' dfdl:inputValueCalc='{
+							if (xs:integer(../Hidden_APP0_Units) eq xs:integer(0)) then "No units"
+							else if (xs:integer(../Hidden_APP0_Units) eq xs:integer(1)) then "Dots per inch"
+							else if (xs:integer(../Hidden_APP0_Units) eq xs:integer(2)) then "Dots per cm"
+							else daf:error()
+							}' />
+						<xs:element name="Xdensity" type="unsignedint16" />
+						<xs:element name="Ydensity" type="unsignedint16" />
+						<xs:element name="Xthumbnail" type="unsignedint8" />
+						<xs:element name="Ythumbnail" type="unsignedint8" />
+						<xs:element name="RGB" type="xs:hexBinary" minOccurs="0" dfdl:occursCountKind="implicit" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{3 * (../Xthumbnail * ../Ythumbnail)}"/>
+					</xs:sequence>
+					<xs:sequence dfdl:choiceBranchKey="JFXX-APP0">
+						<xs:sequence dfdl:hiddenGroupRef="hidden_APP0X_Thumbnail_Format_Group" />
+						<xs:element name='Thumbnail_Format' type='xs:string' dfdl:inputValueCalc='{
+							if (../Hidden_Thumbnail_Format eq xs:integer(16)) then "Thumbnail stored using JPEG encoding"
+							else if (xs:integer(../Hidden_Thumbnail_Format) eq xs:integer(17)) then "Thumbnail stored using one byte per pixel"
+							else if (xs:integer(../Hidden_Thumbnail_Format) eq xs:integer(19)) then "Thumbnail stored using three byte per pixel"
+							else daf:error()
+							}' />
+						<xs:choice>
+							<xs:sequence>
+								<xs:annotation>
+									<xs:appinfo source="http://www.ogf.org/dfdl/">
+										<dfdl:discriminator test="{xs:integer(Hidden_Thumbnail_Format) eq xs:integer(16)}" />
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:element name="Thumbnail_stored_using_JPEG_encoding">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element ref="SOI" />
+											<xs:element name="Thumbnail-data" type="xs:hexBinary" minOccurs="0" dfdl:occursCountKind="implicit" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../../Length - 10}"/>
+											<xs:element ref="EOI" />
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+							<xs:sequence>
+								<xs:annotation>
+									<xs:appinfo source="http://www.ogf.org/dfdl/">
+										<dfdl:discriminator test="{xs:integer(Hidden_Thumbnail_Format) eq xs:integer(17)}" />
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:element name="Thumbnail_stored_using_one_byte_per_pixel">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="Xthumbnail" type="unsignedint8" />
+											<xs:element name="Ythumbnail" type="unsignedint8" />
+											<xs:element name="Thumbnail_palette" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{768}">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="RGB" minOccurs="256" maxOccurs="256" dfdl:occursCountKind="implicit">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="Red" type="unsignedint8" />
+																	<xs:element name="Green" type="unsignedint8" />
+																	<xs:element name="Blue" type="unsignedint8" />							
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="Thumbnail_data" type="xs:hexBinary" minOccurs="0" dfdl:occursCountKind="implicit" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../Xthumbnail * ../Ythumbnail}"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+							<xs:sequence>
+								<xs:annotation>
+									<xs:appinfo source="http://www.ogf.org/dfdl/">
+										<dfdl:discriminator test="{xs:integer(Hidden_Thumbnail_Format) eq xs:integer(19)}" />
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:element name="Thumbnail_stored_using_three_bytes_per_pixel">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="Xthumbnail" type="unsignedint8" />
+											<xs:element name="Ythumbnail" type="unsignedint8" />
+											<xs:element name="Thumbnail_data" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{3 * (../Xthumbnail * ../Ythumbnail)}">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="RGB" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="Red" type="unsignedint8" />
+																	<xs:element name="Green" type="unsignedint8" />
+																	<xs:element name="Blue" type="unsignedint8" />							
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:choice>
+					</xs:sequence>
+				</xs:choice>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -1076,12 +773,13 @@
 		<xs:sequence>
 			<xs:element name="Hidden_APP0_Identifier" type="xs:hexBinary" dfdl:length="5" dfdl:lengthKind="explicit"  dfdl:lengthUnits="bytes" dfdl:outputValueCalc="{
 				if (../Identifier eq 'JFIF-APP0') then xs:hexBinary('4A46494600')
+				else if (../Identifier eq 'JFXX-APP0') then xs:hexBinary('4A46585800')
 				else daf:error()
 				}">
 				<xs:annotation>
 					<xs:appinfo source="http://www.ogf.org/dfdl/">
 						<!-- The identifier is 4A 46 49 46 00 (JFIF0) -->
-						<dfdl:assert><![CDATA[{ xs:string(.) eq "4A46494600" }]]></dfdl:assert>
+						<dfdl:assert><![CDATA[{ xs:string(.) eq "4A46494600" or xs:string(.) eq "4A46585800" }]]></dfdl:assert>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
@@ -1096,123 +794,6 @@
 				else if (../Units eq 'Dots per cm') then xs:unsignedInt('2')
 				else daf:error()
 				}"/>
-		</xs:sequence>
-	</xs:group>
-	
-	<!-- 	APP0X = JFIF extension application-specific marker APP0 -->
-	<!-- See the Wikipedia page (https://en.wikipedia.org/wiki/JPEG_File_Interchange_Format#JFIF_APP0_marker_segment) -->
-	<xs:element name="APP0X">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
-				<xs:sequence dfdl:hiddenGroupRef="hidden_APP0X_Identifier_Group" />
-				<xs:element name='Identifier' type='xs:string' dfdl:inputValueCalc='{
-					if (xs:string(../Hidden_APP0X_Identifier) eq "4A46585800") then "JFXX-APP0"    
-					else "daf:error()"
-					}' />
-				<xs:sequence dfdl:hiddenGroupRef="hidden_APP0X_Thumbnail_Format_Group" />
-				<xs:element name='Thumbnail_Format' type='xs:string' dfdl:inputValueCalc='{
-					if (../Hidden_Thumbnail_Format eq xs:integer(16)) then "Thumbnail stored using JPEG encoding"
-					else if (xs:integer(../Hidden_Thumbnail_Format) eq xs:integer(17)) then "Thumbnail stored using one byte per pixel"
-					else if (xs:integer(../Hidden_Thumbnail_Format) eq xs:integer(19)) then "Thumbnail stored using three byte per pixel"
-					else daf:error()
-					}' />
-				<xs:choice>
-					<xs:sequence>
-						<xs:annotation>
-							<xs:appinfo source="http://www.ogf.org/dfdl/">
-								<dfdl:discriminator test="{xs:integer(Hidden_Thumbnail_Format) eq xs:integer(16)}" />
-							</xs:appinfo>
-						</xs:annotation>
-						<xs:element name="Thumbnail_stored_using_JPEG_encoding">
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element ref="SOI" />
-									<xs:element name="Thumbnail-data" type="xs:hexBinary" minOccurs="0" dfdl:occursCountKind="implicit" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../../Length - 10}"/>
-									<xs:element ref="EOI" />
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-					<xs:sequence>
-						<xs:annotation>
-							<xs:appinfo source="http://www.ogf.org/dfdl/">
-								<dfdl:discriminator test="{xs:integer(Hidden_Thumbnail_Format) eq xs:integer(17)}" />
-							</xs:appinfo>
-						</xs:annotation>
-						<xs:element name="Thumbnail_stored_using_one_byte_per_pixel">
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="Xthumbnail" type="unsignedint8" />
-									<xs:element name="Ythumbnail" type="unsignedint8" />
-									<xs:element name="Thumbnail_palette" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{768}">
-										<xs:complexType>
-											<xs:sequence>
-												<xs:element name="RGB" minOccurs="256" maxOccurs="256" dfdl:occursCountKind="implicit">
-													<xs:complexType>
-														<xs:sequence>
-															<xs:element name="Red" type="unsignedint8" />
-															<xs:element name="Green" type="unsignedint8" />
-															<xs:element name="Blue" type="unsignedint8" />							
-														</xs:sequence>
-													</xs:complexType>
-												</xs:element>
-											</xs:sequence>
-										</xs:complexType>
-									</xs:element>
-									<xs:element name="Thumbnail_data" type="xs:hexBinary" minOccurs="0" dfdl:occursCountKind="implicit" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../Xthumbnail * ../Ythumbnail}"/>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-					<xs:sequence>
-						<xs:annotation>
-							<xs:appinfo source="http://www.ogf.org/dfdl/">
-								<dfdl:discriminator test="{xs:integer(Hidden_Thumbnail_Format) eq xs:integer(19)}" />
-							</xs:appinfo>
-						</xs:annotation>
-						<xs:element name="Thumbnail_stored_using_three_bytes_per_pixel">
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="Xthumbnail" type="unsignedint8" />
-									<xs:element name="Ythumbnail" type="unsignedint8" />
-									<xs:element name="Thumbnail_data" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{3 * (../Xthumbnail * ../Ythumbnail)}">
-										<xs:complexType>
-											<xs:sequence>
-												<xs:element name="RGB" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
-													<xs:complexType>
-														<xs:sequence>
-															<xs:element name="Red" type="unsignedint8" />
-															<xs:element name="Green" type="unsignedint8" />
-															<xs:element name="Blue" type="unsignedint8" />							
-														</xs:sequence>
-													</xs:complexType>
-												</xs:element>
-											</xs:sequence>
-										</xs:complexType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-				</xs:choice>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	
-	<xs:group name="hidden_APP0X_Identifier_Group">
-		<xs:sequence>
-			<xs:element name="Hidden_APP0X_Identifier" type="xs:hexBinary" dfdl:length="5" dfdl:lengthKind="explicit"  dfdl:lengthUnits="bytes" dfdl:outputValueCalc="{
-				if (../Identifier eq 'JFXX-APP0') then xs:hexBinary('4A46585800')
-				else daf:error()
-				}">
-				<xs:annotation>
-					<xs:appinfo source="http://www.ogf.org/dfdl/">
-						<!-- The identifier is 4A 46 58 58 00 (JFXX0) -->
-						<dfdl:assert><![CDATA[{ xs:string(.) eq "4A46585800" }]]></dfdl:assert>
-					</xs:appinfo>
-				</xs:annotation>
-			</xs:element>
 		</xs:sequence>
 	</xs:group>
 	
