@@ -206,8 +206,8 @@
 	<xs:element name="SOS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
-				<xs:element name="Number_of_Image_Components_in_Scan" type="unsignedint8"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ 4 + (2 * ../Number_of_Image_Components_in_Scan) + 2 }"/>
+				<xs:element name="Number_of_Image_Components_in_Scan" type="unsignedint8" dfdl:outputValueCalc="{ fn:count(../Image_Components_in_Scan/Image_Component) }" />
 				<xs:element name="Image_Components_in_Scan" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{2 * ../Number_of_Image_Components_in_Scan}">
 					<xs:complexType>
 						<xs:sequence>
@@ -265,11 +265,11 @@
 	<xs:element name="DHP">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ 6 + (3 * ../Number_of_Source_Image_Components_in_the_Frame) + 2}" />
 				<xs:element name="Precision" type="unsignedint8"/>
 				<xs:element name="Number_of_Lines_in_Source_Image" type="unsignedint16"/>
 				<xs:element name="Number_of_Samples_per_Line" type="unsignedint16"/>
-				<xs:element name="Number_of_Source_Image_Components_in_the_Frame" type="unsignedint8"/>
+				<xs:element name="Number_of_Source_Image_Components_in_the_Frame" type="unsignedint8" dfdl:outputValueCalc="{ fn:count(../Image_Components_in_Frame/Image_Component) }"/>
 				<xs:element name="Image_Components_in_Frame" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{3 * ../Number_of_Source_Image_Components_in_the_Frame}">
 					<xs:complexType>
 						<xs:sequence>
@@ -300,7 +300,7 @@
 	<xs:element name="DAC">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ dfdl:valueLength(../Arithmetic_Codes, 'bytes') + 2 }" />
 				<xs:element name="Arithmetic_Codes" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../Length - 2}">
 					<xs:complexType>
 						<xs:sequence>
@@ -384,7 +384,7 @@
 	<xs:element name="EXP">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ 2 + 2 }"/>
 				<xs:sequence dfdl:hiddenGroupRef="hidden_EXP_Expand_Horizontally_Group" />
 				<xs:element name='Expand_Horizontally' type='xs:string' dfdl:inputValueCalc='{
 					if (xs:integer(../Hidden_Expand_Horizontally) eq xs:integer(0)) then "Horizontal expansion not required"
@@ -425,7 +425,7 @@
 	<xs:element name="DNL">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ 2 + 2 }"/>
 				<xs:element name="Number_of_Lines_in_the_Frame" type="unsignedint16"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -435,7 +435,7 @@
 	<xs:element name="COM">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ dfdl:valueLength(../Text, 'bytes') + 2 } "/>
 				<xs:element name="Text" type="xs:string" dfdl:alignmentUnits="bytes" dfdl:representation="text" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{ ../Length - 2}"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -445,7 +445,7 @@
 	<xs:element name="DRI">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ 2 + 2 }"/>
 				<xs:element name="Restart_Interval" type="unsignedint16"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -453,11 +453,11 @@
 	
 	<xs:complexType name="SOF">
 		<xs:sequence>
-			<xs:element name="Length" type="unsignedint16"/>
+			<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ 6 + (3 * ../Number_of_Source_Image_Components_in_the_Frame) + 2}"/>
 			<xs:element name="Precision" type="unsignedint8"/>
 			<xs:element name="Number_of_Lines_in_Source_Image" type="unsignedint16"/>
 			<xs:element name="Number_of_Samples_per_Line" type="unsignedint16"/>
-			<xs:element name="Number_of_Source_Image_Components_in_the_Frame" type="unsignedint8"/>
+			<xs:element name="Number_of_Source_Image_Components_in_the_Frame" type="unsignedint8" dfdl:outputValueCalc="{ fn:count(../Image_Components_in_Frame/Image_Component) }"/>
 			<xs:element name="Image_Components_in_Frame" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{3 * ../Number_of_Source_Image_Components_in_the_Frame}">
 				<xs:complexType>
 					<xs:sequence>
@@ -495,7 +495,7 @@
 	<xs:element name="DHT">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ dfdl:valueLength(../Huffman_Tables, 'bytes') + 2 }" />
 				<xs:element name="Huffman_Tables" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../Length - 2}">
 					<xs:complexType>
 						<xs:sequence>
@@ -522,7 +522,8 @@
 													<xs:element name="Lengths">
 														<xs:complexType>
 															<xs:sequence>
-																<xs:element name="Length" type="unsignedint8" dfdl:occursCountKind="fixed" minOccurs="16" maxOccurs="16" />
+																<xs:element name="Length" type="unsignedint8" dfdl:occursCountKind="fixed" minOccurs="16" maxOccurs="16"
+																  dfdl:outputValueCalc="{ dfdl:valueLength(../../Values/Value[dfdl:occursIndex()], 'bytes') }" />
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
@@ -569,7 +570,7 @@
 	<xs:element name="DQT">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Length" type="unsignedint16"/>
+				<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ dfdl:valueLength(../Quantization_Tables, 'bytes') + 2 }" />
 				<xs:element name="Quantization_Tables" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../Length - 2}">
 					<xs:complexType>
 						<xs:sequence>
@@ -810,7 +811,7 @@
 	
 	<xs:complexType name="APP">
 		<xs:sequence>
-			<xs:element name="Length" type="unsignedint16"/>
+			<xs:element name="Length" type="unsignedint16" dfdl:outputValueCalc="{ dfdl:valueLength(../APP-data, 'bytes') + 2 }"/>
 			<xs:element name="APP-data" type="xs:hexBinary" minOccurs="0" dfdl:occursCountKind="implicit" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{../Length - 2}"/>
 		</xs:sequence>
 	</xs:complexType>
