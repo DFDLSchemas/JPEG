@@ -43,7 +43,7 @@ SOFTWARE.
   http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd"
   defaultRoundTrip="true">
 
-  <tdml:parserTestCase name="Norway" root="JFIF" model="xsd/jpeg.dfdl.xsd">
+  <tdml:parserTestCase name="Norway" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd">
     <tdml:document>
       <tdml:documentPart type="file">Norway.jpg</tdml:documentPart>
     </tdml:document>
