@@ -17,4 +17,5 @@ class TestNorway {
   @Test def test_Norway() { runner.runOneTest("Norway") }
   @Test def test_notEmptyJPEG() { runner.runOneTest("notEmptyJPEG") }
   @Test def test_notDataBlob1() { runner.runOneTest("notDataBlob1") }
+  @Test def test_minimal1() { runner.runOneTest("minimal1") }
 }

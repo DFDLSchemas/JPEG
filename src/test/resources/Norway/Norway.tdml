@@ -54,35 +54,54 @@ SOFTWARE.
 
   <tdml:parserTestCase name="notEmptyJPEG" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd">
     <tdml:document/>
-    <!-- <tdml:errors>
+    <tdml:errors>
       <tdml:error>Parse Error</tdml:error>
-      </tdml:errors>
-      -->
-      <tdml:infoset>
-        <tdml:dfdlInfoset>
-          <JFIF/>
-        </tdml:dfdlInfoset>
-      </tdml:infoset>
+      <tdml:error>delimiter</tdml:error>
+      <tdml:error>SOI</tdml:error>
+    </tdml:errors>
   </tdml:parserTestCase> 
   
    <tdml:parserTestCase name="notDataBlob1" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd">
     <tdml:document>
        <tdml:documentPart type="byte">00ffD8</tdml:documentPart>
     </tdml:document>
-    <!-- <tdml:errors>
+    <tdml:errors>
       <tdml:error>Parse Error</tdml:error>
-      </tdml:errors>
-      -->
-      <tdml:infoset>
-        <tdml:dfdlInfoset>
-          <JFIF> 
-            <Segment>
-              <DataBlob>00</DataBlob>
-            </Segment>
-            <Segment><SOI/></Segment>
-          </JFIF>
-        </tdml:dfdlInfoset>
-      </tdml:infoset>
+      <tdml:error>delimiter</tdml:error>
+      <tdml:error>SOI</tdml:error>
+    </tdml:errors>
   </tdml:parserTestCase>
+
+  <tdml:parserTestCase name="minimal1" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd"
+    description="Shows that data with the minimal structure here is accepted as a JPEG.">
+    <tdml:document>
+      <tdml:documentPart type="byte">ffd8 ffe0 0010 4a46 4946 0001 0101 0048 0048 0000 aa FF D0 ffd9</tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <JFIF>
+          <SOI />
+          <APP0>
+            <Length>16</Length>
+            <Identifier>JFIF-APP0</Identifier>
+            <version>
+              <major>1</major>
+              <minor>1</minor>
+            </version>
+            <Units>Dots per inch</Units>
+            <Xdensity>72</Xdensity>
+            <Ydensity>72</Ydensity>
+            <Xthumbnail>0</Xthumbnail>
+            <Ythumbnail>0</Ythumbnail>
+            <RGB />
+          </APP0>
+          <Segment><DataBlob>AA</DataBlob></Segment>
+          <Segment><RST0/></Segment>
+          <EOI />
+        </JFIF>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+  
   
 </tdml:testSuite>
