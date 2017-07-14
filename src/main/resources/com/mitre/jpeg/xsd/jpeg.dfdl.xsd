@@ -42,41 +42,30 @@
                          <!--daf:parseUnparsePolicy="parseOnly" />-->
         </xs:appinfo>
     </xs:annotation>
-	
-	<xs:element name="JFIF">
-		<xs:complexType>
-			<xs:sequence>
-                       <xs:element ref="SOI" dfdl:initiator="%#xFF;%#xD8;"/>
-                       <xs:element ref="APP0" dfdl:initiator="%#xFF;%#xE0;"/>
-				<xs:element name="Segment" minOccurs="2" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
-					<xs:complexType>
-						<xs:choice>
-                 <xs:annotation><xs:documentation>
-                 
-     This way of implementing markers with the dataBlobs they encapsulate
-     allows nonsensical orderings and nestings of segments with datablobs.
-     
-     It would be better to model more precisely, the orders of things that 
-     make sense. E.g., a DataBlob cannot stand alone, cannot be the first segment
-     after the APP0, etc. The DataBlob must provide the information for 
-     a frame or scan. They can't appear just anywhere.
 
-     </xs:documentation></xs:annotation>
-							<xs:group ref="Markers" />
-                            <xs:element name="DataBlob" type="xs:hexBinary" dfdl:lengthKind="pattern" dfdl:lengthPattern="[\x00-\xFF]*?(?=\xFF+[\x01-\xFE])" dfdl:encoding="ISO-8859-1">
-                             <xs:annotation>
-                                     <xs:appinfo source="http://www.ogf.org/dfdl/">
-                                       <dfdl:discriminator test="{ dfdl:valueLength(., 'bytes') gt 0 }" />
-                                     </xs:appinfo>
-                            </xs:annotation>
-                            </xs:element>
-						</xs:choice>
-					</xs:complexType>
-				</xs:element>
-                <xs:element ref="EOI" dfdl:initiator="%#xFF;%#xD9;"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+  <xs:element name="JFIF">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="SOI" dfdl:initiator="%#xFF;%#xD8;" />
+      <xs:element name="Segment" minOccurs="2" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
+        <xs:complexType>
+          <xs:choice>
+            <xs:group ref="Markers" />
+            <xs:element name="DataBlob" type="xs:hexBinary" dfdl:lengthKind="pattern" dfdl:lengthPattern="[\x00-\xFF]*?(?=\xFF+[\x01-\xFE])"
+              dfdl:encoding="ISO-8859-1">
+              <xs:annotation>
+                <xs:appinfo source="http://www.ogf.org/dfdl/">
+                  <dfdl:discriminator test="{ dfdl:valueLength(., 'bytes') gt 0 }" />
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element ref="EOI" dfdl:initiator="%#xFF;%#xD9;" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
 	
 	<xs:group name="hiddenFillMarker">
 		<xs:sequence>
@@ -84,7 +73,8 @@
 				xs:hexBinary('FF') 
 				}" />
 			<xs:element name="MarkerID" type="xs:hexBinary" dfdl:lengthUnits="bytes" dfdl:lengthKind="explicit" dfdl:length="1" dfdl:outputValueCalc="{
-				if (fn:exists(../APP1)) then xs:hexBinary('E1')
+				if (fn:exists(../APP0)) then xs:hexBinary('E0')
+                else if (fn:exists(../APP1)) then xs:hexBinary('E1')
 				else if (fn:exists(../APP2)) then xs:hexBinary('E2')
 				else if (fn:exists(../APP3)) then xs:hexBinary('E3')
 				else if (fn:exists(../APP4)) then xs:hexBinary('E4')
@@ -136,14 +126,24 @@
 	
 	<xs:group name="Markers">
      <xs:annotation><xs:documentation>
+     
      This way of implementing markers allows them to appear in any order
      even those that might be complete nonsense. It doesn't implement the
      constraints on legal order/composition of these segments that can 
      be determined from the JPEG spec in ISO DIS 10918-1. 
+     
+     Those constraints must be enforced via validation using Schematron i.e., 
+     not just using this schema, as this schema tolerates orderings that aren't 
+     well-formed JPEGs.
+     
+     Alternatively this schema would be enhanced itself to insure the constraints
+     of the format must be met for successful parsing.
+     
      </xs:documentation></xs:annotation>
 		<xs:sequence>
 			<xs:sequence dfdl:hiddenGroupRef="hiddenFillMarker"/>
 			<xs:choice dfdl:choiceDispatchKey="{ xs:string(MarkerID) }">
+                <xs:element ref="APP0" dfdl:choiceBranchKey="E0"/><!--  APP1 = E1 = Application-specific 1 -->
 			    <xs:element ref="APP1" dfdl:choiceBranchKey="E1"/><!--  APP1 = E1 = Application-specific 1 -->
 			    <xs:element ref="APP2" dfdl:choiceBranchKey="E2"/><!--  APP2 = E2 = Application-specific 2 -->
 			    <xs:element ref="APP3" dfdl:choiceBranchKey="E3"/><!--  APP3 = E3 = Application-specific 3 -->

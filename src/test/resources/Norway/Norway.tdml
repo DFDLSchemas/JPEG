@@ -81,25 +81,40 @@ SOFTWARE.
       <tdml:dfdlInfoset>
         <JFIF>
           <SOI />
-          <APP0>
-            <Length>16</Length>
-            <Identifier>JFIF-APP0</Identifier>
-            <version>
-              <major>1</major>
-              <minor>1</minor>
-            </version>
-            <Units>Dots per inch</Units>
-            <Xdensity>72</Xdensity>
-            <Ydensity>72</Ydensity>
-            <Xthumbnail>0</Xthumbnail>
-            <Ythumbnail>0</Ythumbnail>
-            <RGB />
-          </APP0>
-          <Segment><DataBlob>AA</DataBlob></Segment>
-          <Segment><RST0/></Segment>
+          <Segment>
+            <APP0>
+              <Length>16</Length>
+              <Identifier>JFIF-APP0</Identifier>
+              <version>
+                <major>1</major>
+                <minor>1</minor>
+              </version>
+              <Units>Dots per inch</Units>
+              <Xdensity>72</Xdensity>
+              <Ydensity>72</Ydensity>
+              <Xthumbnail>0</Xthumbnail>
+              <Ythumbnail>0</Ythumbnail>
+              <RGB />
+            </APP0>
+          </Segment>
+          <Segment>
+            <DataBlob>AA</DataBlob>
+          </Segment>
+          <Segment>
+            <RST0 />
+          </Segment>
           <EOI />
         </JFIF>
       </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+  
+  <tdml:parserTestCase name="Penguins" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd">
+    <tdml:document>
+      <tdml:documentPart type="file">Penguins.jpg</tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">Penguins.jpg.xml</tdml:dfdlInfoset>
     </tdml:infoset>
   </tdml:parserTestCase>
   
