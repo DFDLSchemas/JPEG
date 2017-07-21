@@ -65,9 +65,12 @@
                       <!--
                         This schema accepts any sequence of JPEG segments.
                         These assertions insist that some constraints on those are met. 
+                        
+                        Note: Since JPEG gets embedded in other file formats like NITF
+                        it is important not to use absolute paths. All paths must be relative.
                        -->
                       <dfdl:assert message="Does not begin with an SOI segment.">{ fn:exists(Segment[1]/SOI) }</dfdl:assert>
-                      <dfdl:assert message="Does not end with an EOI segment.">{ fn:exists(Segment[fn:count(/JFIF/Segment)]/EOI) }</dfdl:assert>
+                      <dfdl:assert message="Does not end with an EOI segment.">{ fn:exists(Segment[fn:count(Segment)]/EOI) }</dfdl:assert>
                     </xs:appinfo>
                   </xs:annotation>
                 </xs:sequence>
