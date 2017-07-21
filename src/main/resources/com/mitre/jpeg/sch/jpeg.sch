@@ -15,28 +15,28 @@
     
     <sch:pattern id="Marker-Ordering-Rules">
         <sch:rule context="JFIF">
-            <sch:assert test="Marker[1][SOI]">
+            <sch:assert test="Segment[1][SOI]">
                 SOI shall be first.
             </sch:assert>
-            <sch:assert test="Marker[2][APP0]">
+            <sch:assert test="Segment[2][APP0]"> <!-- only holds for JFIF. Not JIF (older) JPEG files -->
                 APP0 shall be second.
             </sch:assert>
-            <sch:assert test="if (Marker[APP0X]) then boolean(Marker[3][APP0X]) else true()">
+            <sch:assert test="if (Segment[APP0X]) then boolean(Segment[3][APP0X]) else true()">
                 If present, APP0X shall be third.
             </sch:assert>
-            <sch:assert test="Marker[last()][EOI]">
+            <sch:assert test="Segment[last()][EOI]">
                 EOI shall be last.
             </sch:assert>
-            <sch:assert test="not((Marker/SOI)[2])">
+            <sch:assert test="not((Segment/SOI)[2])">
                 One SOI only.
             </sch:assert>
-            <sch:assert test="not((Marker/EOI)[2])">
+            <sch:assert test="not((Segment/EOI)[2])">
                 One EOI only.
             </sch:assert>
-            <sch:assert test="not((Marker/APP0)[2])">
+            <sch:assert test="not((Segment/APP0)[2])">
                 One APP0 only.
             </sch:assert>
-            <sch:assert test="not((Marker/APP0X)[2])">
+            <sch:assert test="not((Segment/APP0X)[2])">
                 One APP0X only.
             </sch:assert>
         </sch:rule>

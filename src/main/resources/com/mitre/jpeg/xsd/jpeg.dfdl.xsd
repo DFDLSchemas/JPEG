@@ -21,9 +21,8 @@
         Date: January 13, 2017
       -->
     <!-- 
-        With modifications by Tresys Technology
-        Copyright 2017, Tresys Technology
-       -->
+        With modifications by Tresys Technology.
+      -->
     <xs:annotation>
         <xs:appinfo source="http://www.ogf.org/dfdl/">
             <dfdl:format alignmentUnits="bits" lengthUnits="bits" representation="binary" binaryNumberRep="binary" 
@@ -37,35 +36,44 @@
                          textNumberRoundingMode="roundUnnecessary" textNumberRoundingIncrement="0" textStandardGroupingSeparator="," 
                          separatorPosition="infix" sequenceKind="ordered" terminator="" textBidi="no" textNumberCheckPolicy="strict" 
                          textNumberRep="standard" textOutputMinLength="0" textPadKind="none" textStandardBase="10" textTrimKind="none" trailingSkip="0" truncateSpecifiedLengthString="no" 
-                         utf16Width="fixed" encoding="iso-8859-1" nilKind="literalValue" nilValueDelimiterPolicy="none" occursCountKind="parsed"
+                         utf16Width="fixed" encoding="US-ASCII" nilKind="literalValue" nilValueDelimiterPolicy="none" occursCountKind="parsed"
                          />
                          <!--daf:parseUnparsePolicy="parseOnly" />-->
         </xs:appinfo>
     </xs:annotation>
-
-  <xs:element name="JFIF">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element ref="SOI" dfdl:initiator="%#xFF;%#xD8;" />
-      <xs:element name="Segment" minOccurs="2" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
-        <xs:complexType>
-          <xs:choice>
-            <xs:group ref="Markers" />
-            <xs:element name="DataBlob" type="xs:hexBinary" dfdl:lengthKind="pattern" dfdl:lengthPattern="[\x00-\xFF]*?(?=\xFF+[\x01-\xFE])"
-              dfdl:encoding="ISO-8859-1">
-              <xs:annotation>
-                <xs:appinfo source="http://www.ogf.org/dfdl/">
-                  <dfdl:discriminator test="{ dfdl:valueLength(., 'bytes') gt 0 }" />
-                </xs:appinfo>
-              </xs:annotation>
-            </xs:element>
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
-      <xs:element ref="EOI" dfdl:initiator="%#xFF;%#xD9;" />
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
+	
+	<xs:element name="JFIF">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Segment" minOccurs="0" maxOccurs="unbounded" dfdl:occursCountKind="implicit">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="DataBlob" type="xs:hexBinary" dfdl:lengthKind="pattern" dfdl:lengthPattern="[\x00-\xFF]*?(?=\xFF+[\x01-\xFE])" dfdl:encoding="ISO-8859-1">
+								<xs:annotation>
+									<xs:appinfo source="http://www.ogf.org/dfdl/">
+										<dfdl:discriminator test="{ dfdl:valueLength(., 'bytes') gt 0 }" />
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:group ref="Markers" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+                <xs:sequence>
+                  <xs:annotation>
+                    <xs:appinfo source="http://www.ogf.org/dfdl/">
+                      <!--
+                        This schema accepts any sequence of JPEG segments.
+                        These assertions insist that some constraints on those are met. 
+                       -->
+                      <dfdl:assert message="Does not begin with an SOI segment.">{ fn:exists(Segment[1]/SOI) }</dfdl:assert>
+                      <dfdl:assert message="Does not end with an EOI segment.">{ fn:exists(Segment[fn:count(/JFIF/Segment)]/EOI) }</dfdl:assert>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	
 	<xs:group name="hiddenFillMarker">
 		<xs:sequence>
@@ -73,8 +81,9 @@
 				xs:hexBinary('FF') 
 				}" />
 			<xs:element name="MarkerID" type="xs:hexBinary" dfdl:lengthUnits="bytes" dfdl:lengthKind="explicit" dfdl:length="1" dfdl:outputValueCalc="{
-				if (fn:exists(../APP0)) then xs:hexBinary('E0')
-                else if (fn:exists(../APP1)) then xs:hexBinary('E1')
+				if (fn:exists(../SOI)) then xs:hexBinary('D8')
+				else if (fn:exists(../APP0)) then xs:hexBinary('E0')
+				else if (fn:exists(../APP1)) then xs:hexBinary('E1')
 				else if (fn:exists(../APP2)) then xs:hexBinary('E2')
 				else if (fn:exists(../APP3)) then xs:hexBinary('E3')
 				else if (fn:exists(../APP4)) then xs:hexBinary('E4')
@@ -119,31 +128,18 @@
 				else if (fn:exists(../RST5)) then xs:hexBinary('D5')
 				else if (fn:exists(../RST6)) then xs:hexBinary('D6')
 				else if (fn:exists(../RST7)) then xs:hexBinary('D7')
+				else if (fn:exists(../EOI)) then xs:hexBinary('D9')
 				else daf:error()
 				}" />
 		</xs:sequence>
 	</xs:group>
 	
 	<xs:group name="Markers">
-     <xs:annotation><xs:documentation>
-     
-     This way of implementing markers allows them to appear in any order
-     even those that might be complete nonsense. It doesn't implement the
-     constraints on legal order/composition of these segments that can 
-     be determined from the JPEG spec in ISO DIS 10918-1. 
-     
-     Those constraints must be enforced via validation using Schematron i.e., 
-     not just using this schema, as this schema tolerates orderings that aren't 
-     well-formed JPEGs.
-     
-     Alternatively this schema would be enhanced itself to insure the constraints
-     of the format must be met for successful parsing.
-     
-     </xs:documentation></xs:annotation>
 		<xs:sequence>
 			<xs:sequence dfdl:hiddenGroupRef="hiddenFillMarker"/>
 			<xs:choice dfdl:choiceDispatchKey="{ xs:string(MarkerID) }">
-                <xs:element ref="APP0" dfdl:choiceBranchKey="E0"/><!--  APP1 = E1 = Application-specific 1 -->
+			    <xs:element ref="SOI" dfdl:choiceBranchKey="D8"/><!--  SOI = D8 = Start of Image -->
+			    <xs:element ref="APP0" dfdl:choiceBranchKey="E0"/><!--  APP0 = E0 = Application-specific 0 -->
 			    <xs:element ref="APP1" dfdl:choiceBranchKey="E1"/><!--  APP1 = E1 = Application-specific 1 -->
 			    <xs:element ref="APP2" dfdl:choiceBranchKey="E2"/><!--  APP2 = E2 = Application-specific 2 -->
 			    <xs:element ref="APP3" dfdl:choiceBranchKey="E3"/><!--  APP3 = E3 = Application-specific 3 -->
@@ -203,7 +199,9 @@
 			    <xs:element ref="RST5" dfdl:choiceBranchKey="D5"/><!--  RST5 = D5 = Reset 5 -->
 			    <xs:element ref="RST6" dfdl:choiceBranchKey="D6"/><!--  RST6 = D6 = Reset 6 -->
 			    <xs:element ref="RST7" dfdl:choiceBranchKey="D7"/><!--  RST7 = D7 = Reset 7 -->
-          	</xs:choice>
+			
+			    <xs:element ref="EOI" dfdl:choiceBranchKey="D9"/><!--  EOI = D9 = End of Image -->
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	

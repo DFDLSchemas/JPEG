@@ -56,7 +56,8 @@ SOFTWARE.
     <tdml:document/>
     <tdml:errors>
       <tdml:error>Parse Error</tdml:error>
-      <tdml:error>delimiter</tdml:error>
+      <tdml:error>Assertion failed</tdml:error>
+      <tdml:error>begin</tdml:error>
       <tdml:error>SOI</tdml:error>
     </tdml:errors>
   </tdml:parserTestCase> 
@@ -67,8 +68,21 @@ SOFTWARE.
     </tdml:document>
     <tdml:errors>
       <tdml:error>Parse Error</tdml:error>
-      <tdml:error>delimiter</tdml:error>
+      <tdml:error>Assertion failed</tdml:error>
+      <tdml:error>begin</tdml:error>
       <tdml:error>SOI</tdml:error>
+    </tdml:errors>
+  </tdml:parserTestCase>
+  
+  <tdml:parserTestCase name="missingEOI1" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd">
+    <tdml:document>
+       <tdml:documentPart type="byte">ffD8</tdml:documentPart>
+    </tdml:document>
+    <tdml:errors>
+      <tdml:error>Parse Error</tdml:error>
+      <tdml:error>Assertion failed</tdml:error>
+      <tdml:error>end</tdml:error>
+      <tdml:error>EOI</tdml:error>
     </tdml:errors>
   </tdml:parserTestCase>
 
@@ -80,7 +94,7 @@ SOFTWARE.
     <tdml:infoset>
       <tdml:dfdlInfoset>
         <JFIF>
-          <SOI />
+          <Segment><SOI/></Segment>
           <Segment>
             <APP0>
               <Length>16</Length>
@@ -103,7 +117,7 @@ SOFTWARE.
           <Segment>
             <RST0 />
           </Segment>
-          <EOI />
+          <Segment><EOI/></Segment>
         </JFIF>
       </tdml:dfdlInfoset>
     </tdml:infoset>

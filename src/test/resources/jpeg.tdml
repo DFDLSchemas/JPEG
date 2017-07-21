@@ -53,5 +53,16 @@ SOFTWARE.
     </tdml:infoset>
   </tdml:parserTestCase>
 
+  <tdml:parserTestCase name="multiImage" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd"
+    description="test a multi-image jpeg file.">
+    <tdml:document>
+      <tdml:documentPart type="file">multi-image-i3309a.ntf.jpg</tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset type="file">multi-image-i3309a.ntf.jpg.xml</tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+ 
  
 </tdml:testSuite>

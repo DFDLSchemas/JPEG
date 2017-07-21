@@ -1,14 +1,18 @@
 package com.mitre.jpeg
 import org.junit.Test
-import edu.illinois.ncsa.daffodil.tdml.DFDLTestSuite
-import edu.illinois.ncsa.daffodil.util.Misc
+import org.junit.AfterClass
+import edu.illinois.ncsa.daffodil.tdml.Runner
 
 object TestNorway {
-  val tdmlFile = "Norway/Norway.tdml"
-  val validateTDML = true
-  val validateDFDLSchema = true
-  lazy val runner = new DFDLTestSuite(Misc.getRequiredResource(tdmlFile), validateTDML, validateDFDLSchema)
-  runner.setCheckAllTopLevel(true)
+
+  val runner = Runner("Norway", "Norway.tdml",
+    validateTDMLFile = true,
+    validateDFDLSchemas = true,
+    compileAllTopLevel = true)
+
+  @AfterClass def shutdown() = {
+    runner.reset
+  }
 }
 
 class TestNorway {
@@ -16,6 +20,7 @@ class TestNorway {
 
   @Test def test_Norway() { runner.runOneTest("Norway") }
   @Test def test_notEmptyJPEG() { runner.runOneTest("notEmptyJPEG") }
+  @Test def test_missingEOI1() { runner.runOneTest("missingEOI1") }
   @Test def test_notDataBlob1() { runner.runOneTest("notDataBlob1") }
   @Test def test_minimal1() { runner.runOneTest("minimal1") }
   @Test def test_penguins() { runner.runOneTest("Penguins") }

@@ -16,5 +16,6 @@ class TestJPEG {
   import TestJPEG._
 
   @Test def test_IMG_2308() { runner.runOneTest("IMG_2308") }
+  @Test def test_multiImage() { runner.runOneTest("multiImage") }
 
 }
