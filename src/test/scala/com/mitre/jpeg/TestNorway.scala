@@ -5,7 +5,7 @@ import edu.illinois.ncsa.daffodil.tdml.Runner
 
 object TestNorway {
 
-  val runner = Runner("Norway", "Norway.tdml",
+  val runner = Runner("com/mitre/jpeg", "Norway/Norway.tdml",
     validateTDMLFile = true,
     validateDFDLSchemas = true,
     compileAllTopLevel = true)

@@ -5,7 +5,7 @@ import org.junit.AfterClass
 
 object TestJPEG {
 
-  val runner = Runner("", "jpeg.tdml", validateTDMLFile = true, validateDFDLSchemas = true)
+  val runner = Runner("com/mitre/jpeg", "jpeg.tdml", validateTDMLFile = true, validateDFDLSchemas = true)
 
   @AfterClass def shutdown() = {
     runner.reset
