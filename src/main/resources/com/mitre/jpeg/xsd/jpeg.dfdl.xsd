@@ -541,8 +541,14 @@
 													<xs:element name="Lengths">
 														<xs:complexType>
 															<xs:sequence>
-																<xs:element name="Length" type="unsignedint8" dfdl:occursCountKind="fixed" minOccurs="16" maxOccurs="16"
-																  dfdl:outputValueCalc="{ dfdl:valueLength(../../Values/Value[dfdl:occursIndex()], 'bytes') }" />
+																<xs:element name="Length" dfdl:occursCountKind="fixed" minOccurs="16" maxOccurs="16">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Value" type="unsignedint8"
+																				dfdl:outputValueCalc="{ dfdl:valueLength(../../../Values/Value[dfdl:occursIndex()], 'bytes') }" />
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
@@ -550,7 +556,7 @@
 														<xs:complexType>
 															<xs:sequence>
 																<xs:element name="Value" type="xs:hexBinary" dfdl:occursCountKind="fixed" minOccurs="16" maxOccurs="16"
-																	dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{ ../../Lengths/Length[dfdl:occursIndex()] }" />
+																	dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:length="{ ../../Lengths/Length[dfdl:occursIndex()]/Value }" />
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
