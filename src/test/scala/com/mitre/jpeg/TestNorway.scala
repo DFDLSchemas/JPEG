@@ -1,7 +1,7 @@
 package com.mitre.jpeg
 import org.junit.Test
 import org.junit.AfterClass
-import edu.illinois.ncsa.daffodil.tdml.Runner
+import org.apache.daffodil.tdml.Runner
 
 object TestNorway {
 
