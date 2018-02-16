@@ -132,7 +132,7 @@
 				else if (fn:exists(../RST6)) then xs:hexBinary('D6')
 				else if (fn:exists(../RST7)) then xs:hexBinary('D7')
 				else if (fn:exists(../EOI)) then xs:hexBinary('D9')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}" />
 		</xs:sequence>
 	</xs:group>
@@ -240,7 +240,7 @@
 											else if (xs:integer(../Hidden_SOS_DC_Entropy_Coding_Table_Selector) eq xs:integer(1)) then "1"
 											else if (xs:integer(../Hidden_SOS_DC_Entropy_Coding_Table_Selector) eq xs:integer(2)) then "2"
 											else if (xs:integer(../Hidden_SOS_DC_Entropy_Coding_Table_Selector) eq xs:integer(3)) then "3"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 										<xs:sequence dfdl:hiddenGroupRef="hidden_SOS_AC_Entropy_Coding_Table_Selector_Group" />
 										<xs:element name='AC_Entropy_Coding_Table_Selector' type='xs:string' dfdl:inputValueCalc='{
@@ -248,7 +248,7 @@
 											else if (xs:integer(../Hidden_SOS_AC_Entropy_Coding_Table_Selector) eq xs:integer(1)) then "1"
 											else if (xs:integer(../Hidden_SOS_AC_Entropy_Coding_Table_Selector) eq xs:integer(2)) then "2"
 											else if (xs:integer(../Hidden_SOS_AC_Entropy_Coding_Table_Selector) eq xs:integer(3)) then "3"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 									</xs:sequence>
 								</xs:complexType>
@@ -330,7 +330,7 @@
 										<xs:element name='Class' type='xs:string' dfdl:inputValueCalc='{
 											if (xs:integer(../Hidden_DAC_Class) eq xs:integer(0)) then "DC table or lossless table"
 											else if (xs:integer(../Hidden_DAC_Class) eq xs:integer(1)) then "AC table"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 										<xs:sequence dfdl:hiddenGroupRef="hidden_DAC_Identifier_Group" />
 										<xs:element name='Identifier' type='xs:string' dfdl:inputValueCalc='{
@@ -338,7 +338,7 @@
 											else if (xs:integer(../Hidden_DAC_Identifier) eq xs:integer(1)) then "1"
 											else if (xs:integer(../Hidden_DAC_Identifier) eq xs:integer(2)) then "2"
 											else if (xs:integer(../Hidden_DAC_Identifier) eq xs:integer(3)) then "3"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 										<xs:choice>
 											<xs:sequence>
@@ -386,7 +386,7 @@
 			<xs:element name="Hidden_DAC_Class" type="unsignedint4" dfdl:outputValueCalc="{
 				if (../Class eq 'DC table or lossless table') then xs:unsignedInt('0')
 				else if (../Class eq 'AC table') then xs:unsignedInt('1')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}"/>
 		</xs:sequence>
 	</xs:group>
@@ -408,13 +408,13 @@
 				<xs:element name='Expand_Horizontally' type='xs:string' dfdl:inputValueCalc='{
 					if (xs:integer(../Hidden_Expand_Horizontally) eq xs:integer(0)) then "Horizontal expansion not required"
 					else if (xs:integer(../Hidden_Expand_Horizontally) eq xs:integer(1)) then "The reference components shall be expanded horizontally"
-					else daf:error()
+					else fn:error("jpeg", "fn:error called.", .)
 					}' />
 				<xs:sequence dfdl:hiddenGroupRef="hidden_EXP_Expand_Vertically_Group" />
 				<xs:element name='Expand_Vertically' type='xs:string' dfdl:inputValueCalc='{
 					if (xs:integer(../Hidden_Expand_Vertically) eq xs:integer(0)) then "Vertical expansion not required"
 					else if (xs:integer(../Hidden_Expand_Vertically) eq xs:integer(1)) then "The reference components shall be expanded vertically"
-					else daf:error()
+					else fn:error("jpeg", "fn:error called.", .)
 					}' />
 			</xs:sequence>
 		</xs:complexType>
@@ -425,7 +425,7 @@
 			<xs:element name="Hidden_Expand_Horizontally" type="unsignedint4" dfdl:outputValueCalc="{
 				if (../Expand_Horizontally eq 'Horizontal expansion not required') then xs:unsignedInt('0')
 				else if (../Expand_Horizontally eq 'The reference components shall be expanded horizontally') then xs:unsignedInt('1')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}"/>
 		</xs:sequence>
 	</xs:group>
@@ -435,7 +435,7 @@
 			<xs:element name="Hidden_Expand_Vertically" type="unsignedint4" dfdl:outputValueCalc="{
 				if (../Expand_Vertically eq 'Vertical expansion not required') then xs:unsignedInt('0')
 				else if (../Expand_Vertically eq 'The reference components shall be expanded vertically') then xs:unsignedInt('1')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}"/>
 		</xs:sequence>
 	</xs:group>
@@ -525,7 +525,7 @@
 										<xs:element name='Class' type='xs:string' dfdl:inputValueCalc='{
 											if (xs:integer(../Hidden_DHT_Class) eq xs:integer(0)) then "The Huffman code is for the DC coefficients"
 											else if (xs:integer(../Hidden_DHT_Class) eq xs:integer(1)) then "The Huffman code is for the AC coefficients"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 										<xs:sequence dfdl:hiddenGroupRef="hidden_DHT_Destination_Identifier_Group" />
 										<xs:element name='Destination_Identifier' type='xs:string' dfdl:inputValueCalc='{
@@ -533,7 +533,7 @@
 											else if (xs:integer(../Hidden_DHT_Destination_Identifier) eq xs:integer(1)) then "1"
 											else if (xs:integer(../Hidden_DHT_Destination_Identifier) eq xs:integer(2)) then "2"
 											else if (xs:integer(../Hidden_DHT_Destination_Identifier) eq xs:integer(3)) then "3"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 										<xs:element name="Huffman_Code">
 											<xs:complexType>
@@ -578,7 +578,7 @@
 			<xs:element name="Hidden_DHT_Class" type="unsignedint4" dfdl:outputValueCalc="{
 				if (../Class eq 'The Huffman code is for the DC coefficients') then xs:unsignedInt('0')
 				else if (../Class eq 'The Huffman code is for the AC coefficients') then xs:unsignedInt('1')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}"/>
 		</xs:sequence>
 	</xs:group>
@@ -606,7 +606,7 @@
 										<xs:element name='Precision' type='xs:string' dfdl:inputValueCalc='{
 											if (xs:integer(../Hidden_DQT_Precision) eq xs:integer(0)) then "A single byte is used for each quantization value"
 											else if (xs:integer(../Hidden_DQT_Precision) eq xs:integer(1)) then "Two bytes are used for each quantization value"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 										<xs:sequence dfdl:hiddenGroupRef="hidden_DQT_Destination_Identifier_Group" />
 										<xs:element name='Destination_Identifier' type='xs:string' dfdl:inputValueCalc='{
@@ -614,7 +614,7 @@
 											else if (xs:integer(../Hidden_DQT_Destination_Identifier) eq xs:integer(1)) then "1"
 											else if (xs:integer(../Hidden_DQT_Destination_Identifier) eq xs:integer(2)) then "2"
 											else if (xs:integer(../Hidden_DQT_Destination_Identifier) eq xs:integer(3)) then "3"
-											else daf:error()
+											else fn:error("jpeg", "fn:error called.", .)
 											}' />
 										<xs:element name="Elements">
 											<xs:complexType>
@@ -655,7 +655,7 @@
 			<xs:element name="Hidden_DQT_Precision" type="unsignedint4" dfdl:outputValueCalc="{
 				if (../Precision eq 'A single byte is used for each quantization value') then xs:unsignedInt('0')
 				else if (../Precision eq 'Two bytes are used for each quantization value') then xs:unsignedInt('1')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}"/>
 		</xs:sequence>
 	</xs:group>
@@ -677,7 +677,7 @@
 				<xs:element name='Identifier' type='xs:string' dfdl:inputValueCalc='{
 					if (xs:string(../Hidden_APP0_Identifier) eq "4A46494600") then "JFIF-APP0"    
 					else if (xs:string(../Hidden_APP0_Identifier) eq "4A46585800") then "JFXX-APP0"    
-					else "daf:error()"
+					else fn:error("jpeg", "fn:error called.", .)
 					}' />
 				<xs:choice dfdl:choiceDispatchKey="{ Identifier }">
 					<xs:sequence dfdl:choiceBranchKey="JFIF-APP0">
@@ -694,7 +694,7 @@
 							if (xs:integer(../Hidden_APP0_Units) eq xs:integer(0)) then "No units"
 							else if (xs:integer(../Hidden_APP0_Units) eq xs:integer(1)) then "Dots per inch"
 							else if (xs:integer(../Hidden_APP0_Units) eq xs:integer(2)) then "Dots per cm"
-							else daf:error()
+							else fn:error("jpeg", "fn:error called.", .)
 							}' />
 						<xs:element name="Xdensity" type="unsignedint16" />
 						<xs:element name="Ydensity" type="unsignedint16" />
@@ -708,7 +708,7 @@
 							if (../Hidden_Thumbnail_Format eq xs:integer(16)) then "Thumbnail stored using JPEG encoding"
 							else if (xs:integer(../Hidden_Thumbnail_Format) eq xs:integer(17)) then "Thumbnail stored using one byte per pixel"
 							else if (xs:integer(../Hidden_Thumbnail_Format) eq xs:integer(19)) then "Thumbnail stored using three byte per pixel"
-							else daf:error()
+							else fn:error("jpeg", "fn:error called.", .)
 							}' />
 						<xs:choice>
 							<xs:sequence>
@@ -800,7 +800,7 @@
 			<xs:element name="Hidden_APP0_Identifier" type="xs:hexBinary" dfdl:length="5" dfdl:lengthKind="explicit"  dfdl:lengthUnits="bytes" dfdl:outputValueCalc="{
 				if (../Identifier eq 'JFIF-APP0') then xs:hexBinary('4A46494600')
 				else if (../Identifier eq 'JFXX-APP0') then xs:hexBinary('4A46585800')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}">
 				<xs:annotation>
 					<xs:appinfo source="http://www.ogf.org/dfdl/">
@@ -818,7 +818,7 @@
 				if (../Units eq 'No units') then xs:unsignedInt('0')
 				else if (../Units eq 'Dots per inch') then xs:unsignedInt('1')
 				else if (../Units eq 'Dots per cm') then xs:unsignedInt('2')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}"/>
 		</xs:sequence>
 	</xs:group>
@@ -829,7 +829,7 @@
 				if (../Thumbnail_Format eq 'Thumbnail stored using JPEG encoding') then xs:unsignedInt('16')
 				else if (../Thumbnail_Format eq 'Thumbnail stored using one byte per pixel') then xs:unsignedInt('17')
 				else if (../Thumbnail_Format eq 'Thumbnail stored using three byte per pixel') then xs:unsignedInt('19')
-				else daf:error()
+				else fn:error('jpeg', 'fn:error called.', .)
 				}"/>
 		</xs:sequence>
 	</xs:group>
