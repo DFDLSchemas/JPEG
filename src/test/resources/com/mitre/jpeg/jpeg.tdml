@@ -38,10 +38,19 @@ SOFTWARE.
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" 
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:fn="http://www.w3.org/2005/xpath-functions" 
+  xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
   http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd"
-  defaultRoundTrip="true">
+  defaultRoundTrip="true" 
+  defaultConfig="cfg_tuning">
+  
+  <tdml:defineConfig name="cfg_tuning">
+    <daf:tunables>
+      <daf:maxOccursBounds>50000</daf:maxOccursBounds>
+      <daf:suppressSchemaDefinitionWarnings>alignmentNotSame</daf:suppressSchemaDefinitionWarnings>
+    </daf:tunables>
+  </tdml:defineConfig>
 
   <tdml:parserTestCase name="IMG_2308" root="JFIF" model="com/mitre/jpeg/xsd/jpeg.dfdl.xsd"
     description="test a JIF file that is NOT a JFIF file. (There are two file formats generally referred to as 'jpeg' files)">
