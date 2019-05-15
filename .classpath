@@ -11,11 +11,12 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-lib"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-runtime1"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-runtime1-unparser"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-tdml"/>
 	<classpathentry kind="lib" path="/daffodil-lib/lib_managed/bundles/org.scala-lang.modules/scala-xml_2.12/scala-xml_2.12-1.0.6.jar" sourcepath="/daffodil-lib/lib_managed/srcs/org.scala-lang.modules/scala-xml_2.12/scala-xml_2.12-1.0.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:lib_managed/docs/org.scala-lang.modules/scala-xml_2.12/scala-xml_2.12-1.0.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-tdml-lib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-tdml-processor"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
