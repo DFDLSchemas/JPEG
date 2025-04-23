@@ -8,14 +8,14 @@ object TestJPEG {
   val runner = Runner("com/mitre/jpeg", "jpeg.tdml", validateTDMLFile = true, validateDFDLSchemas = true)
 
   @AfterClass def shutdown() = {
-    runner.reset
+    runner.reset()
   }
 }
 
 class TestJPEG {
   import TestJPEG._
 
-  @Test def test_IMG_2308() { runner.runOneTest("IMG_2308") }
-  @Test def test_multiImage() { runner.runOneTest("multiImage") }
+  @Test def test_IMG_2308() = { runner.runOneTest("IMG_2308") }
+  @Test def test_multiImage() = { runner.runOneTest("multiImage") }
 
 }
